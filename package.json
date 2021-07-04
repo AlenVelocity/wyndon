@@ -1,0 +1,33 @@
+{
+  "name": "yawaf",
+  "version": "0.0.1",
+  "description": "Yet Another Web Application Framework",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlenSaito1/YAWAF.git"
+  },
+  "keywords": [
+    "web",
+    "REST",
+    "API",
+    "web-framework"
+  ],
+  "author": "Alen Yohannan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlenSaito1/YAWAF/issues"
+  },
+  "homepage": "https://github.com/AlenSaito1/YAWAF#readme",
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "eslint": "^7.30.0",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
+  }
+}
