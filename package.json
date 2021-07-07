@@ -1,6 +1,6 @@
 {
   "name": "wyndon",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Yet Another Web Application Framework",
   "main": "dist/index.js",
   "scripts": {
