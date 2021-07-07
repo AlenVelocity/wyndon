@@ -2,7 +2,7 @@
   "name": "wyndon",
   "version": "0.1.0",
   "description": "Yet Another Web Application Framework",
-  "main": "src/index.ts",
+  "main": "dist/index.ts",
   "scripts": {
     "build": "tsc -p .",
     "lint": "eslint \"src/**/*.ts\"",
