@@ -14,17 +14,10 @@ Why not?
 # Usage
 
 ```TS
-<<<<<<< HEAD
 import App from 'wyndon'
 // or const { App } = require('wyndon')
 // or const App = require('wyndon').default
 // or const App = require('wyndon').App
-=======
-import App from 'cyst'
-// or const { App } = require('cyst')
-// or const App = require('cyst').default
-// or const App = require('cyst').App
->>>>>>> 906bceb2010fb69d269f3f9c08906e299c5e0b51
 
 // Initialize App
 const app = new App()
