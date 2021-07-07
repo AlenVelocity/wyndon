@@ -1,6 +1,6 @@
 # YAWAF - Yet Another Web Application Framework
 
-Minimalist Middileware Framework
+Minimalist Middleware Framework
 
 ![z](https://img.icons8.com/fluent/96/000000/server.png)
 
