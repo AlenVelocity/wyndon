@@ -1,5 +1,5 @@
 {
-  "name": "yawaf",
+  "name": "cyst",
   "version": "0.0.1",
   "description": "Yet Another Web Application Framework",
   "main": "src/index.ts",
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlenSaito1/YAWAF.git"
+    "url": "git+https://github.com/AlenSaito1/cyst.git"
   },
   "keywords": [
     "web",
@@ -26,9 +26,9 @@
   "author": "Alen Yohannan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlenSaito1/YAWAF/issues"
+    "url": "https://github.com/AlenSaito1/cyst/issues"
   },
-  "homepage": "https://github.com/AlenSaito1/YAWAF#readme",
+  "homepage": "https://github.com/AlenSaito1/cyst#readme",
   "devDependencies": {
     "@types/finalhandler": "^1.1.1",
     "@types/node": "^16.0.0",

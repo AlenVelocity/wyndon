@@ -1,4 +1,4 @@
-# YAWAF - Yet Another Web Application Framework
+# Cyst 
 
 Minimalist Middleware Framework
 
@@ -9,15 +9,15 @@ Why not?
 
 # Installation
 ```sh
-> npm i yawaf
+> npm i cyst
 ```
 # Usage
 
 ```TS
-import App from 'yawaf'
-// or const { App } = require('yawaf')
-// or const App = require('yawaf').default
-// or const App = require('yawaf').App
+import App from 'cyst'
+// or const { App } = require('cyst')
+// or const App = require('cyst').default
+// or const App = require('cyst').App
 
 // Initialize App
 const app = new App()
