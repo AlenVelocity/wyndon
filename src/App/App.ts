@@ -21,14 +21,28 @@ const defer =
               process.nextTick(fn.bind.apply(fn as unknown as any, arguments as unknown as any))
           }
 
+/**
+ * Create a new YAWAF server.
+ */
 export default class App extends EventEmitter {
     constructor() {
         super()
     }
 
+    /**
+     * Base Route
+     */
     route = ''
+
+    /**
+     * Middleware stack
+     */
     stack: ServerStackItem[] = []
 
+    
+    /**
+     * Binds the given middleware to the app or the route if provided
+     */
     use(fn: NextHandleFunction): this
     use(fn: HandleFunction): this
     use(route: string, fn: NextHandleFunction): this
@@ -46,7 +60,7 @@ export default class App extends EventEmitter {
             const server = handle
             ;(server as unknown as App).route = path as string
             handle = (req: http.IncomingMessage, res: http.ServerResponse, next: HandleFunction) => {
-                ;(server as unknown as App).handle(req, res, next)
+                (server as unknown as App).handle(req, res, next)
             }
         }
 
@@ -56,6 +70,12 @@ export default class App extends EventEmitter {
         return this
     }
 
+    /**
+     * Base handler
+     * @param req 
+     * @param res 
+     * @param out 
+     */
     handle(req: IncomingMessage, res: http.ServerResponse, out: HandleFunction): void {
         let index = 0
         const protohost = getHost(req.url || '')
@@ -83,40 +103,32 @@ export default class App extends EventEmitter {
                 removed = ''
             }
 
-            // next callback
             const layer = stack[index++]
 
-            // all done
             if (!layer) return void defer(done as () => unknown, err as undefined)
 
-            // route data
             const path = parseurl(req)?.pathname || '/'
             const route = layer.route
 
-            // skip this layer if the route doesn't match
             if (path.toLowerCase().substr(0, route.length) !== route.toLowerCase()) {
                 return next(err)
             }
 
-            // skip if route match does not border "/", ".", or end
             const c = path.length > route.length && path[route.length]
             if (c && c !== '/' && c !== '.') {
                 return next(err)
             }
 
-            // trim off the part of the url that matches the route
             if (route.length !== 0 && route !== '/') {
                 removed = route
                 req.url = protohost || '' + req?.url?.substr((protohost?.length || 0) + removed.length || 0)
 
-                // ensure leading slash
                 if (!protohost && req.url[0] !== '/') {
                     req.url = '/' + req.url
                     slashAdded = true
                 }
             }
 
-            // call the layer handle
             call(layer.handle, route, err, req, res, next)
         }
 
