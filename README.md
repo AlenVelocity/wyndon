@@ -1,4 +1,4 @@
-# YAWAF - Yet Another Web Application Framework
+# wyndon 
 
 Minimalist Middleware Framework
 
@@ -9,15 +9,15 @@ Why not?
 
 # Installation
 ```sh
-> npm i yawaf
+> npm i wyndon
 ```
 # Usage
 
 ```TS
-import App from 'yawaf'
-// or const { App } = require('yawaf')
-// or const App = require('yawaf').default
-// or const App = require('yawaf').App
+import App from 'wyndon'
+// or const { App } = require('wyndon')
+// or const App = require('wyndon').default
+// or const App = require('wyndon').App
 
 // Initialize App
 const app = new App()

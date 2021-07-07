@@ -22,7 +22,7 @@ const defer =
           }
 
 /**
- * Create a new YAWAF server.
+ * Create a new wyndon server.
  */
 export default class App extends EventEmitter {
     constructor() {
