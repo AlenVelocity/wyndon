@@ -1,6 +1,6 @@
 {
   "name": "yawaf",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Yet Another Web Application Framework",
   "main": "src/index.ts",
   "scripts": {
