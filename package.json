@@ -10,6 +10,9 @@
     "prepare": "npm run build",
     "prettier-format": "prettier --config .prettierrc \"src/**/*.ts\" --write"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlenSaito1/YAWAF.git"
