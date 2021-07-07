@@ -4,7 +4,10 @@
   "description": "Yet Another Web Application Framework",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p .",
+    "lint": "eslint \"src/**/*.ts\"",
+    "postinstall": "npm run build",
+    "prettier-format": "prettier --config .prettierrc \"src/**/*.ts\" --write"
   },
   "repository": {
     "type": "git",
