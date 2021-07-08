@@ -28,9 +28,9 @@ export default class View {
                 absolute,
                 options,
                 callback ||
-                    ((result: string | Error | null, result2: string) => {
-                        console.log(result, result2)
-                        data = typeof result === 'string' ? result : result2 ? result2 : null
+                    ((err: null, result: string) => {
+                        if (err) throw err
+                        data = result
                     })
             )
             return data
