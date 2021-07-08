@@ -35,7 +35,10 @@ export default class App extends EventEmitter {
         this.use(query())
     }
 
-    store = new Map<string, any>()
+    /**
+     * Primary-Local storage Map
+     */
+    private store = new Map<string, any>()
 
     /**
      * Stores the value with the given key in a [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
@@ -61,8 +64,18 @@ export default class App extends EventEmitter {
      */
     stack: ServerStackItem[] = []
 
+    /**
+     * View Engine-embbeded object
+     */
     engine: View | undefined
 
+    /**
+     * Sets the engine
+     * @param engine
+     * Officially supported: [EJS](https://www.npmjs.com/package/ejs), [Pug](https://www.npmjs.com/package/pug)
+     * @param path
+     * @returns
+     */
     view = (engine?: string, path = './views'): this => {
         this.engine = new View(this.get('view engine') || engine, this.get('views') || path)
         return this
@@ -169,6 +182,14 @@ export default class App extends EventEmitter {
 
         next()
     }
+
+    /**
+     * Binds the server to a PORT
+     * @param port
+     * @param hostname
+     * @param backlog
+     * @param callback
+     */
     listen(port: number, hostname?: string, backlog?: number, callback?: HandleFunction): http.Server
     listen(port: number, hostname?: string, callback?: HandleFunction): http.Server
     listen(path: string, callback?: HandleFunction): http.Server

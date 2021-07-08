@@ -1,6 +1,5 @@
 import { existsSync } from 'fs'
 import { resolve } from 'path'
-
 export default class View {
     data: (unknown | null | Error)[]
     constructor(public engine?: string, public path = './views') {
@@ -8,6 +7,12 @@ export default class View {
         this.data = this.load(this.engine as string)
     }
 
+    /**
+     *
+     * @param mod - module to load
+     * Officially supported: [EJS](https://www.npmjs.com/package/ejs), [Pug](https://www.npmjs.com/package/pug)
+     * @returns
+     */
     load = (mod: string): (unknown | null | Error)[] => {
         try {
             return [require(mod), null]
