@@ -1,6 +1,6 @@
 const wyndon = require('../../dist')
 const app = new wyndon.App()
-
+console.log(wyndon)
 app.use((req, _res, next) => {
     console.log({ request: req.url, query: req.query })
     next()

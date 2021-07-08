@@ -17,7 +17,7 @@ Why not?
 # Usage
 The following code shows the procedure to create a simple Server and binding it to a PORT
 ```TS
-import App from 'wyndon'
+import { App } from 'wyndon'
 // or const { App } = require('wyndon')
 
 // Initialize App

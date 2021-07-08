@@ -1,4 +1,4 @@
-export { default } from './App'
+export { default as App } from './App'
 export * from './App'
 export * from './Types'
 export { default as IncomingMessage } from './IncomingMessage'
