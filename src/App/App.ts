@@ -34,6 +34,22 @@ export default class App extends EventEmitter {
         this.use(query())
     }
 
+    store = new Map<string, any>()
+
+    /**
+     * Stores the value with the given key in a [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+     * @param key
+     * @param value
+     */
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    set = (key: string, value: any): Map<string, any> => this.store.set(key, value)
+
+    /**
+     * Retrives the data stored in the Map. Returns `undefined` if absent
+     * @param key the key of the value to get from the storage
+     */
+    get = <T>(key: string): T | undefined => this.store.get(key)
+
     /**
      * Base Route
      */
