@@ -28,7 +28,7 @@ export default class View {
                 absolute,
                 options,
                 callback ||
-                    ((err: null, result: string) => {
+                    ((err: Error | null, result: string) => {
                         if (err) throw err
                         data = result
                     })
