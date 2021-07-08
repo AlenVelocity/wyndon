@@ -16,7 +16,7 @@ export default class View {
         }
     }
 
-    render = (filename: string, options?: { [key: string]: unknown }, callback?: () => unknown): string | null => {
+    render = (filename: string, options?: { [key: string]: unknown }): string | null => {
         if (!this.data[0]) throw this.data[1]
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const engine = (this.data[0] as any).__wyndon || (this.data[0] as any).renderFile
@@ -24,15 +24,10 @@ export default class View {
         const absolute = resolve(this.path, filename)
         let data: string | null = null
         if (existsSync(absolute)) {
-            engine(
-                absolute,
-                options,
-                callback ||
-                    ((err: Error | null, result: string) => {
-                        if (err) throw err
-                        data = result
-                    })
-            )
+            engine(absolute, options, (err: Error | null, result: string) => {
+                if (err) throw err
+                data = result
+            })
             return data
         }
         throw new Error(`Couldn't locate ${absolute}`)
