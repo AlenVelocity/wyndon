@@ -1,3 +1,5 @@
 export { default } from './App'
 export * from './App'
 export * from './Types'
+export { default as IncomingMessage } from './IncomingMessage'
+export { default as ServerResponse } from './ServerResponse'
