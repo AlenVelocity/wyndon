@@ -1,10 +1,34 @@
-const App = require('../../dist').default
-const app = new App()
+const wyndon = require('../../dist')
+const app = new wyndon.App()
 
 app.use((req, _res, next) => {
-    console.group({ request: req.url, query: req.query })
+    console.log({ request: req.url, query: req.query })
     next()
 })
+
+const apiRouter = new wyndon.Router()
+    .use('/test', (_req, res) => res.end('Working!'))
+    .use('/math', (req, res) => {
+        let { x, y } = req?.query || { x: 0, y: 0}
+        x = parseFloat(x) || 0
+        y = parseFloat(y) || 0 
+        let result = `${x} {O} ${y} = {R}`
+        switch(req.query.method) {
+            case 'add':
+                return void res.end(result.replace('{O}', '+').replace('{R}', x + y ))
+            case 'sub':
+                return void res.end(result.replace('{O}', '-').replace('{R}', x - y ))
+            case 'multiply':
+                return void res.end(result.replace('{O}', '*').replace('{R}', x * y ))
+            case 'divide':
+                return void res.end(result.replace('{O}', '/').replace('{R}', x / y ))
+            default: 
+                return void res.end('Invalid Method')
+        }
+    })
+    .use((_req, res) => res.end('APIs are Cool!'))
+
+app.use('/api', apiRouter)
 
 app.use('/well', (_req, res) => res.end('Well...'))
 
