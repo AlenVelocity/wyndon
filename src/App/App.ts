@@ -47,7 +47,7 @@ export default class App extends EventEmitter {
     use(fn: HandleFunction): this
     use(route: string, fn: NextHandleFunction): this
     use(route: string, fn: HandleFunction): this
-    use(route?: HandleFunction | string, fn?: HandleFunction): this {
+    use(route?: HandleFunction | App | string, fn?: HandleFunction | App ): this {
         let handle: App | NextHandleFunction | undefined | HandleFunction = fn
         let path = route
 
@@ -56,11 +56,11 @@ export default class App extends EventEmitter {
             path = '/'
         }
 
-        if (typeof (handle as unknown as App).handle === 'function' && path) {
+        if (typeof (handle as App).handle === 'function' && path) {
             const server = handle
-            ;(server as unknown as App).route = path as string
+            ;(server as App).route = path as string
             handle = (req: http.IncomingMessage, res: http.ServerResponse, next: HandleFunction) => {
-                ;(server as unknown as App).handle(req, res, next)
+                ;(server as App).handle(req, res, next)
             }
         }
 
