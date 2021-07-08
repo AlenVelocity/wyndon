@@ -10,6 +10,8 @@ import { HandleFunction, NextFunction, NextHandleFunction } from './Types'
 import call from './call'
 import query from '../Middleware/query'
 import Router from '../Router'
+import ServerResponse from './ServerResponse'
+import wyndon from '../Middleware/wyndon'
 interface ServerStackItem {
     route: string
     handle: HandleFunction | http.Server
@@ -28,6 +30,7 @@ const defer =
 export default class App extends EventEmitter {
     constructor() {
         super()
+        this.use(wyndon())
         this.use(query())
     }
 
@@ -62,7 +65,7 @@ export default class App extends EventEmitter {
         if (typeof (handle as Router)?.handle === 'function' && path) {
             const server = handle
             ;(server as Router).route = path as string
-            handle = (req: http.IncomingMessage, res: http.ServerResponse, next: HandleFunction) => {
+            handle = (req: IncomingMessage, res: ServerResponse, next: HandleFunction) => {
                 ;(server as Router).handle(req, res, next)
             }
         }
@@ -79,7 +82,7 @@ export default class App extends EventEmitter {
      * @param res
      * @param out
      */
-    handle(req: IncomingMessage, res: http.ServerResponse, out: HandleFunction): void {
+    handle(req: IncomingMessage, res: ServerResponse, out: HandleFunction): void {
         let index = 0
         const protohost = getHost(req.url || '')
         let removed = ''
@@ -141,7 +144,7 @@ export default class App extends EventEmitter {
     listen(path: string, callback?: HandleFunction): http.Server
     listen(handle: unknown, listeningListener?: HandleFunction): http.Server
     listen(...args: any[]): http.Server {
-        const server = http.createServer(((req: IncomingMessage, res: http.ServerResponse, next: HandleFunction) => {
+        const server = http.createServer(((req: IncomingMessage, res: ServerResponse, next: HandleFunction) => {
             this.handle(req, res, next)
         }) as RequestListener)
         // eslint-disable-next-line prefer-spread
