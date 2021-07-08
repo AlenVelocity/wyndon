@@ -120,12 +120,12 @@ export default class App extends EventEmitter {
             })
 
         req.originalUrl = req.originalUrl || req.url
-        res.render = (filename: string, options: { [key: string]: unknown }) => {
+        res.render = (filename: string, options?: { [key: string]: unknown }) => {
             if (!this.engine) throw new Error('No view engine specified')
             res.writeHead(res.statusCode || 200, {
                 'Content-Type': 'text/html'
             })
-            res.end(this.engine.render(filename, options))
+            res.end(this.engine.render(filename, options || {}))
         }
         const next: NextFunction = (err) => {
             if (slashAdded) {

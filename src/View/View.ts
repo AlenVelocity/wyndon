@@ -28,11 +28,10 @@ export default class View {
                 absolute,
                 options,
                 callback ||
-                    ((result: string) => {
+                    ((err: Error, result: string) => {
                         data = result
                     })
             )
-            console.log(data)
             return data
         }
         throw new Error(`Couldn't locate ${absolute}`)
