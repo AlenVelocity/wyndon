@@ -12,6 +12,7 @@ import query from '../Middleware/query'
 import Router from '../Router'
 import ServerResponse from './ServerResponse'
 import wyndon from '../Middleware/wyndon'
+import View from '../View/View'
 interface ServerStackItem {
     route: string
     handle: HandleFunction | http.Server
@@ -60,6 +61,12 @@ export default class App extends EventEmitter {
      */
     stack: ServerStackItem[] = []
 
+    engine: View | undefined
+
+    view = (engine?: string, path = './views'): this => {
+        this.engine = new View(this.get('view engine') || engine, this.get('views') || path)
+        return this
+    }
     /**
      * Binds the given middleware to the app or the route if provided
      */
@@ -113,6 +120,7 @@ export default class App extends EventEmitter {
             })
 
         req.originalUrl = req.originalUrl || req.url
+        res.render = this.engine?.render
         const next: NextFunction = (err) => {
             if (slashAdded) {
                 req.url = req?.url?.substr(1)
