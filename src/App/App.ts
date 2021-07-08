@@ -9,6 +9,7 @@ import './Types'
 import { HandleFunction, NextFunction, NextHandleFunction } from './Types'
 import call from './call'
 import query from '../Middleware/query'
+import Router from '../Router'
 interface ServerStackItem {
     route: string
     handle: HandleFunction | http.Server
@@ -45,9 +46,11 @@ export default class App extends EventEmitter {
      */
     use(fn: NextHandleFunction): this
     use(fn: HandleFunction): this
+    use(fn: Router): this
     use(route: string, fn: NextHandleFunction): this
     use(route: string, fn: HandleFunction): this
-    use(route?: HandleFunction | App | string, fn?: HandleFunction | App ): this {
+    use(route: string, fn: Router): this
+    use(route?: HandleFunction | Router | string, fn?: HandleFunction | Router): this {
         let handle: App | NextHandleFunction | undefined | HandleFunction = fn
         let path = route
 
@@ -56,11 +59,11 @@ export default class App extends EventEmitter {
             path = '/'
         }
 
-        if (typeof (handle as App).handle === 'function' && path) {
+        if (typeof (handle as Router)?.handle === 'function' && path) {
             const server = handle
-            ;(server as App).route = path as string
+            ;(server as Router).route = path as string
             handle = (req: http.IncomingMessage, res: http.ServerResponse, next: HandleFunction) => {
-                ;(server as App).handle(req, res, next)
+                ;(server as Router).handle(req, res, next)
             }
         }
 
