@@ -3,12 +3,12 @@ import { EventEmitter } from 'events'
 import http, { RequestListener } from 'http'
 import parseurl from 'parseurl'
 import finalhandler from 'finalhandler'
-import qs from 'qs'
 import getHost from './getHost'
 import IncomingMessage from './IncomingMessage'
 import './Types'
 import { HandleFunction, NextFunction, NextHandleFunction } from './Types'
 import call from './call'
+import query from '../Middleware/query'
 interface ServerStackItem {
     route: string
     handle: HandleFunction | http.Server
@@ -27,6 +27,7 @@ const defer =
 export default class App extends EventEmitter {
     constructor() {
         super()
+        this.use(query())
     }
 
     /**
@@ -39,7 +40,6 @@ export default class App extends EventEmitter {
      */
     stack: ServerStackItem[] = []
 
-    
     /**
      * Binds the given middleware to the app or the route if provided
      */
@@ -60,7 +60,7 @@ export default class App extends EventEmitter {
             const server = handle
             ;(server as unknown as App).route = path as string
             handle = (req: http.IncomingMessage, res: http.ServerResponse, next: HandleFunction) => {
-                (server as unknown as App).handle(req, res, next)
+                ;(server as unknown as App).handle(req, res, next)
             }
         }
 
@@ -72,9 +72,9 @@ export default class App extends EventEmitter {
 
     /**
      * Base handler
-     * @param req 
-     * @param res 
-     * @param out 
+     * @param req
+     * @param res
+     * @param out
      */
     handle(req: IncomingMessage, res: http.ServerResponse, out: HandleFunction): void {
         let index = 0
@@ -91,7 +91,6 @@ export default class App extends EventEmitter {
             })
 
         req.originalUrl = req.originalUrl || req.url
-        req.query = qs.parse(req.originalUrl as string)
         const next: NextFunction = (err) => {
             if (slashAdded) {
                 req.url = req?.url?.substr(1)
