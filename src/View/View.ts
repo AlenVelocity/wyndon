@@ -32,6 +32,7 @@ export default class View {
                         data = result
                     })
             )
+            console.log(data)
             return data
         }
         throw new Error(`Couldn't locate ${absolute}`)
