@@ -29,6 +29,7 @@ export default class View {
                 options,
                 callback ||
                     ((result: string | Error | null, result2: string) => {
+                        console.log(result, result2)
                         data = typeof result === 'string' ? result : result2 ? result2 : null
                     })
             )
