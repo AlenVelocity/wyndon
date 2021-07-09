@@ -78,6 +78,7 @@ export default class App extends EventEmitter {
      */
     view = (engine?: string, path = './views'): this => {
         this.engine = new View(this.get('view engine') || engine, this.get('views') || path)
+        this.engine.load()
         return this
     }
     /**
