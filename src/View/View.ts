@@ -2,8 +2,7 @@ import { existsSync } from 'fs'
 import { resolve } from 'path'
 export default class View {
     engine: (unknown | null | Error)[] | undefined
-    constructor(public mod?: string, public path = './views') {
-    }
+    constructor(public mod?: string, public path = './views') {}
 
     load = (): void => {
         if (!this.mod) throw new Error('Module should be set before loading')
