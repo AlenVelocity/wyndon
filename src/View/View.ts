@@ -1,19 +1,22 @@
 import { existsSync } from 'fs'
 import { resolve } from 'path'
 export default class View {
-    data: (unknown | null | Error)[]
-    constructor(public engine?: string, public path = './views') {
-        if (!engine) throw new Error('No engine provided')
-        this.data = this.load(this.engine as string)
+    engine: (unknown | null | Error)[] | undefined
+    constructor(public mod?: string, public path = './views') {
+        if (!mod) throw new Error('No engine provided')
     }
 
+    load = (): void => {
+        if (!this.mod) throw new Error('Module should be set before loading')
+        this.engine = this._load(this.mod)
+    }
     /**
      *
      * @param mod - module to load
      * Officially supported: [EJS](https://www.npmjs.com/package/ejs), [Pug](https://www.npmjs.com/package/pug)
      * @returns
      */
-    load = (mod: string): (unknown | null | Error)[] => {
+    private _load = (mod: string): (unknown | null | Error)[] => {
         try {
             return [require(mod), null]
         } catch (err) {
@@ -21,11 +24,24 @@ export default class View {
         }
     }
 
+    /**
+     * Manually set the render engine
+     * @param {engine} object to set as the view engine
+     * @returns
+     */
+    // eslint-disable-next-line
+    set = (engine: any): this => {
+        if (!engine.__wyndon && !engine.renderFile) throw new Error("The given object can't be used as a view engine")
+        this.engine = [null, engine]
+        return this
+    }
+
     render = (filename: string, options?: { [key: string]: unknown }): string | null => {
-        if (!this.data[0]) throw this.data[1]
+        if (!this.engine) throw new Error('Engine not set')
+        if (!this.engine[0]) throw this.engine[1]
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const engine = (this.data[0] as any).__wyndon || (this.data[0] as any).renderFile
-        if (!engine) throw new Error(`Module ${this.engine} is not compatable with wyndon`)
+        const engine = (this.engine[0] as any).__wyndon || (this.engine[0] as any).renderFile
+        if (!engine) throw new Error(`Module ${this.mod} is not compatable with wyndon`)
         const absolute = resolve(this.path, filename)
         let data: string | null = null
         if (existsSync(absolute)) {
