@@ -31,7 +31,7 @@ export default class View {
     // eslint-disable-next-line
     set = (engine: any): this => {
         if (!engine.__wyndon && !engine.renderFile) throw new Error("The given object can't be used as a view engine")
-        this.engine = [null, engine]
+        this.engine = [engine, null]
         return this
     }
 
