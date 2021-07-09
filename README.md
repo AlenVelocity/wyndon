@@ -49,7 +49,7 @@ app.listen(process.env.PORT || 5000)
  If you want advanced routing, you can use the `Router` class
 
 ```TS
-import App, { Router } from 'wyndon'
+import { App, Router } from 'wyndon'
 
 const app = new App()
 
