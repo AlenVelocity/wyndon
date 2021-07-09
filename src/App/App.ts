@@ -70,6 +70,17 @@ export default class App extends EventEmitter {
     engine: View | undefined
 
     /**
+     * Set the view engine manually
+     * @param engine - engine to set
+     * @returns
+     */
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    setEngine = (engine: any): this => {
+        this.engine = new View().set(engine)
+        return this
+    }
+
+    /**
      * Sets the engine
      * @param engine
      * Officially supported: [EJS](https://www.npmjs.com/package/ejs), [Pug](https://www.npmjs.com/package/pug)
