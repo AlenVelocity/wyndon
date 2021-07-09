@@ -3,7 +3,6 @@ import { resolve } from 'path'
 export default class View {
     engine: (unknown | null | Error)[] | undefined
     constructor(public mod?: string, public path = './views') {
-        if (!mod) throw new Error('No engine provided')
     }
 
     load = (): void => {
