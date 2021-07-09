@@ -12,7 +12,7 @@ import query from '../Middleware/query'
 import Router from '../Router'
 import ServerResponse from './ServerResponse'
 import wyndon from '../Middleware/wyndon'
-import View from '../View/View'
+import { View } from '../View'
 interface ServerStackItem {
     route: string
     handle: HandleFunction | http.Server
