@@ -39,12 +39,12 @@
     "@typescript-eslint/parser": "^4.28.1",
     "eslint": "^7.30.0",
     "prettier": "^2.3.2",
+    "typedoc": "^0.21.2",
     "typescript": "^4.3.5"
   },
   "dependencies": {
     "finalhandler": "^1.1.2",
     "parseurl": "^1.3.3",
-    "qs": "^6.10.1",
-    "typedoc": "^0.21.2"
+    "qs": "^6.10.1"
   }
 }
