@@ -207,6 +207,14 @@ export default class App extends EventEmitter {
 
     /**
      * Binds the server to a PORT
+     * shorthand for
+     * ```
+     * import { createServer } from 'http'
+     * import { App } from 'wyndon'
+     *
+     * const app = new App()
+     * createServer(app.callback).listen(PORT)
+     * ```
      * @param port
      * @param hostname
      * @param backlog
