@@ -185,6 +185,16 @@ export default class App extends EventEmitter {
     }
 
     /**
+     * Callback for http's `createServer` for binding the server to the handle function
+     * @param {IncomingMessage}req
+     * @param {ServerResponse}res
+     * @param {HandleFunction}next
+     * @returns
+     */
+    callback = (req: IncomingMessage, res: ServerResponse, next: HandleFunction): void =>
+        void this.handle(req, res, next)
+
+    /**
      * Binds the server to a PORT
      * @param port
      * @param hostname
@@ -196,9 +206,7 @@ export default class App extends EventEmitter {
     listen(path: string, callback?: HandleFunction): http.Server
     listen(handle: unknown, listeningListener?: HandleFunction): http.Server
     listen(...args: any[]): http.Server {
-        const server = http.createServer(((req: IncomingMessage, res: ServerResponse, next: HandleFunction) => {
-            this.handle(req, res, next)
-        }) as RequestListener)
+        const server = http.createServer(this.callback as RequestListener)
         // eslint-disable-next-line prefer-spread
         return server.listen.apply(server, args as any)
     }
