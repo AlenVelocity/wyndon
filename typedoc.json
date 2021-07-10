@@ -3,6 +3,6 @@
     "excludePrivate": true,
     "excludeProtected": true,
     "excludeExternals": true,
-    "includeVersion": false,
+    "includeVersion": true,
     "out": "docs"
 }
