@@ -62,7 +62,7 @@ export default class App extends EventEmitter {
     /**
      * Middleware stack
      */
-    stack: ServerStackItem[] = []
+    private stack: ServerStackItem[] = []
 
     /**
      * View Engine-embbeded object
@@ -92,6 +92,16 @@ export default class App extends EventEmitter {
         this.engine.load()
         return this
     }
+
+
+    /**
+      * Returns the stack items as an array
+      * Github Copilot wrote this
+      */
+    getStack = (): ServerStackItem[] => {
+        return this.stack
+    }
+
     /**
      * Binds the given middleware to the app or the route if provided
      */
